@@ -8,7 +8,6 @@ const Dashboard = () => {
   const [classes, setClasses] = useState([]);
   const [notices, setNotices] = useState([]);
   const [videos, setVideos] = useState([]);
-//   const [attendance, setAttendance] = useState("Present");
   const [greeting, setGreeting] = useState('');
   const [showWelcome, setShowWelcome] = useState(true);
   const [showGreeting, setShowGreeting] = useState(false);
@@ -18,13 +17,8 @@ const Dashboard = () => {
   const [showFinalMessage, setShowFinalMessage] = useState(false);
   
   useEffect(() => {
-    // const userId = auth.currentUser.uid;
-
-    // Fetch user details
     const fetchUserData = async () => {
-    //   const userDoc = doc(db, 'users', userId);
-    //   const userSnapshot = await getDoc(userDoc);
-      // You can use user data here if needed
+      // Placeholder for fetching user data if needed
     };
 
     fetchUserData();
@@ -101,7 +95,7 @@ const Dashboard = () => {
 
   return (
     <div>
-         <FAB />
+      <FAB />
       <style>
         {`
           .dashboard-container {
@@ -209,7 +203,7 @@ const Dashboard = () => {
             {/* Welcome Message */}
             {showWelcome && (
               <div className="typewriter">
-                Welcome to Sulekha Devi Mission School
+                Welcome to Specialist Mathematics Classes
               </div>
             )}
             {/* Greeting Message */}
@@ -255,18 +249,17 @@ const Dashboard = () => {
                     <div key={hw.id}>
                       <p
                         style={{
-                          color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
+                          color: 'darkpurple',
                           fontWeight: 'bold',
                           fontSize: '28px',
-                          border: '2px solid purple', // You can adjust the border color and size here
-                          padding: '10px', // Adds some padding inside the border
-                          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Shadow effect
-                          borderRadius: '10px' // Makes the border slightly rounded
+                          border: '2px solid purple',
+                          padding: '10px',
+                          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
+                          borderRadius: '10px'
                         }}
                       >
                         {hw.title}
                       </p>
-
                     </div>
                   ))
                 ) : (
@@ -283,91 +276,82 @@ const Dashboard = () => {
           </div>
         </div>
 
-
-
-        
         <div className="bottom-section">
           {/* Important Notices */}
           <div className="section">
-                <div className=''>    
-                    <h3>Important Notices</h3>
-                    {notices.length > 0 ? (
-                    notices.map(notice => (
-                        <div key={notice.id}>
-                        <p>{notice.message}</p>
-                        </div>
-                    ))
-                    ) : (
-                    <p>No notices at the moment.</p>
-                    )}
-
-                </div>   
-          </div>
-
-          {/* Upcoming/Ongoing Classes */}
-          <div className="section">
-            <h3>Upcoming/Ongoing Classes</h3>
-            {classes.length > 0 ? (
-              classes.map(cls => {
-                const currentTime = new Date().getTime();
-                const startTime = new Date(cls.startTime).getTime();
-                const isOngoing = currentTime >= startTime;
-
-                return (
-                  <div style={{
-                    color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
-                    fontWeight: 'bold',
-                    fontSize: '28px',
-                    border: '2px solid purple', // You can adjust the border color and size here
-                    padding: '10px', // Adds some padding inside the border
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Shadow effect
-                    borderRadius: '10px' // Makes the border slightly rounded
-                  }} key={cls.id}>
-                   <h4 style={{ color: 'black' }}>{cls.subject}</h4>
-
-                    <p
-                    style={{
-                      color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
-                      fontWeight: 'bold',
-                      fontSize: '28px',
-                      border: '2px solid purple', // You can adjust the border color and size here
-                      padding: '10px', // Adds some padding inside the border
-                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Shadow effect
-                      borderRadius: '10px' // Makes the border slightly rounded
-                    }}
-                    >{isOngoing ? "Ongoing" : `Upcoming at ${cls.startTime}`}</p>
-                    {isOngoing && <a href={cls.jitsiLink}>Join Now</a>}
+            <div className=''>    
+              <h3>Important Notices</h3>
+              {notices.length > 0 ? (
+                notices.map(notice => (
+                  <div key={notice.id}>
+                    <p>{notice.message}</p>
                   </div>
-                );
-              })
-            ) : (
-              <p>No classes scheduled.</p>
-            )}
+                ))
+              ) : (
+                <p>No notices at the moment.</p>
+              )}
+            </div>
           </div>
 
-          {/* Suggested Videos */}
+          {/* Upcoming Classes */}
           <div className="section">
-            <h3>Suggested Videos</h3>
-            {videos.length > 0 ? (
-              videos.map(video => (
-                <div key={video.id}>
-                  <p style={{
-                      color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
-                      fontWeight: 'bold',
-                      fontSize: '28px',
-                      border: '2px solid purple', // You can adjust the border color and size here
-                      padding: '10px', // Adds some padding inside the border
-                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Shadow effect
-                      borderRadius: '10px' // Makes the border slightly rounded
-                    }}>{video.title}</p>
+            <h3>Upcoming Classes</h3>
+            {classes.length > 0 ? (
+              classes.map(cls => (
+                <div key={cls.id}>
+                  <p>{cls.subject}</p>
+                  <p>{new Date(cls.startTime).toLocaleString()}</p>
                 </div>
               ))
             ) : (
-              <p>No suggested videos at the moment.</p>
+              <p>No upcoming classes scheduled.</p>
             )}
           </div>
 
-          {/* Homework */}
+<div className="section">
+  <h3>Suggested Videos</h3>
+  {videos.length > 0 ? (
+    videos.map(video => (
+      <div key={video.id} style={{
+                       color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
+                      fontWeight: 'bold',
+                      fontSize: '28px',
+                      border: '2px solid purple', // You can adjust the border color and size here
+                      padding: '10px', // Adds some padding inside the border
+                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Shadow effect
+                      borderRadius: '10px' // Makes the border slightly rounded
+          }}>
+        <p style={{
+                       color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
+                      fontWeight: 'bold',
+                      fontSize: '28px',
+          }}>{video.title}</p>
+        <p style={{
+                       color: 'darkpurple', // You can use an exact color code like '#4B0082' for dark purple
+                      fontWeight: 'bold',
+                      fontSize: '28px',
+          }}>{video.description}</p>
+        <a href={video.link} target="_blank" rel="noopener noreferrer">
+          <button style={{
+            backgroundColor: '#1E90FF',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            padding: '10px 15px',
+            cursor: 'pointer'
+          }}>
+            Watch Video
+          </button>
+        </a>
+      </div>
+    ))
+  ) : (
+    <p>No suggested videos available.</p>
+  )}
+</div>
+
+
+       {/* Homework */}
           <div className="section">
           <h3>Homework</h3>
 {homework.length > 0 ? (
